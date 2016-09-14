@@ -28,7 +28,6 @@ public class Cliente implements Serializable {
 	@Column(name = "DS_NOME")
 	private String nome;
 	
-	@CPF(message = "Digite um cpf válido")
 	@NotNull( message = "Campo CPF obrigatório")
 	@Column(name = "NU_CPF")
 	private Long cpf;

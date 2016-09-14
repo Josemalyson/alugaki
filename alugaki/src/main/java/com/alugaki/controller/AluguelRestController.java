@@ -13,13 +13,13 @@ import com.alugaki.model.Aluguel;
 import com.alugaki.service.AluguelService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class AluguelRestController {
 
 	@Autowired
 	private AluguelService aluguelService;
 	
-	@GetMapping("/aluguel")
-	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/alugueis")
 	public ResponseEntity<List<Aluguel>> findAll(){
 		return new ResponseEntity<>(aluguelService.findaAll(), HttpStatus.OK);
 	}

@@ -21,4 +21,17 @@ public class ClienteService implements Serializable {
 		return clienteRepository.findAll();
 	}
 
+	public void salvar(Cliente cliente) {
+		clienteRepository.save(cliente);
+
+	}
+
+	public void excluir(Cliente cliente) {
+		clienteRepository.delete(cliente);
+	}
+
+	public Cliente buscarClientePorId(Long id) {
+		return clienteRepository.findOne(id);
+	}
+
 }
