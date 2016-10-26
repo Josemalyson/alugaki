@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,19 +20,20 @@ import com.alugaki.model.Cliente;
 import com.alugaki.service.ClienteService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
+@RequestMapping("/clientes")
 public class ClienteRestController {
 
 	@Autowired
 	private ClienteService clienteService;
 
-	@GetMapping("/clientes")
+	@GetMapping
 	@ResponseBody
 	public ResponseEntity<List<Cliente>> findAll() {
 		return new ResponseEntity<>(clienteService.findaAll(), HttpStatus.OK);
 	}
 
-	@GetMapping("/clientes/{id}")
+	@GetMapping("{id}")
 	@ResponseBody
 	public ResponseEntity<Cliente> buscarClientePorId(@PathVariable("id") Long id) {
 		// TODO VALIDACOES DE CAMPO ID NAO PODE SER NULO
@@ -40,7 +42,7 @@ public class ClienteRestController {
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
 	}
 
-	@PostMapping("/clientes")
+	@PostMapping
 	public ResponseEntity<Cliente> salvarCliente(@RequestBody Cliente cliente) {
 		// TODO VERIFICAR PQ O NUMERO 0 (ZERO) E DESCONSIDERADO NO INICIO DO CPF
 		// VALIDACOES DE CAMPOS OBRIGATORIOS
@@ -50,15 +52,15 @@ public class ClienteRestController {
 		return new ResponseEntity<>(cliente, HttpStatus.CREATED);
 	}
 
-	@PutMapping("/clientes")
+	@PutMapping
 	public ResponseEntity<Cliente> editarCliente(@RequestBody Cliente cliente) {
 		// TODO VALIDACOES DE CAMPO ID NAO PODE SER NULO
-				// VALIDACOES SE CLIENTE EXISTE PARA PODER SER EDITADO
+		// VALIDACOES SE CLIENTE EXISTE PARA PODER SER EDITADO
 		clienteService.salvar(cliente);
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/clientes")
+	@DeleteMapping
 	public ResponseEntity<Cliente> excluirCliente(@RequestBody Cliente cliente) {
 		// TODO VALIDACOES DE CAMPO ID NAO PODE SER NULO
 		// VALIDACOES SE CLIENTE EXISTE PARA PODER SER EXCLUIDO
@@ -66,7 +68,7 @@ public class ClienteRestController {
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/clientes/{id}")
+	@DeleteMapping("{id}")
 	public ResponseEntity<Cliente> excluirCliente(@PathVariable("id") Long id) {
 		// TODO VALIDACOES DE CAMPO ID NAO PODE SER NULO
 		// VALIDACOES SE CLIENTE EXISTE PARA PODER SER EXCLUIDO
@@ -74,5 +76,5 @@ public class ClienteRestController {
 		clienteService.excluir(cliente);
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
 	}
-	
+
 }
