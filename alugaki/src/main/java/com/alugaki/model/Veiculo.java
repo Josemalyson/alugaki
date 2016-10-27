@@ -33,7 +33,7 @@ public class Veiculo implements Serializable {
 
 	@NotNull(message = "Campo COR obrigatório")
 	@Column(name = "DS_COR")
-	private CorEnum cor;
+	private String cor;
 
 	@Column(name = "NU_PASSAGEIROS")
 	private Integer qtdPassageiros;
@@ -50,7 +50,7 @@ public class Veiculo implements Serializable {
 		return nome;
 	}
 
-	public CorEnum getCor() {
+	public String getCor() {
 		return cor;
 	}
 
@@ -70,7 +70,7 @@ public class Veiculo implements Serializable {
 		this.nome = nome;
 	}
 
-	public void setCor(CorEnum cor) {
+	public void setCor(String cor) {
 		this.cor = cor;
 	}
 
