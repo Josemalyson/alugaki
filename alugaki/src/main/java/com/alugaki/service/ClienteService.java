@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alugaki.model.Cliente;
 import com.alugaki.repository.ClienteRepository;
@@ -21,11 +22,13 @@ public class ClienteService implements Serializable {
 		return clienteRepository.findAll();
 	}
 
+	@Transactional
 	public void salvar(Cliente cliente) {
 		clienteRepository.save(cliente);
 
 	}
 
+	@Transactional
 	public void excluir(Cliente cliente) {
 		clienteRepository.delete(cliente);
 	}

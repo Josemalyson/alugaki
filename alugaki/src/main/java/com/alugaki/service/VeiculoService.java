@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alugaki.model.Veiculo;
 import com.alugaki.repository.VeiculoRepository;
@@ -19,6 +20,20 @@ public class VeiculoService implements Serializable {
 
 	public List<Veiculo> findaAll() {
 		return veiculoRepository.findAll();
+	}
+
+	public Veiculo buscarVeiculoPorId(Long id) {
+		return veiculoRepository.findOne(id);
+	}
+
+	@Transactional
+	public void salvar(Veiculo veiculo) {
+		veiculoRepository.save(veiculo);
+	}
+
+	@Transactional
+	public void excluir(Veiculo veiculo) {
+		veiculoRepository.delete(veiculo);
 	}
 
 }
