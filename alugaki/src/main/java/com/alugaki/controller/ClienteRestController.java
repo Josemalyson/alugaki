@@ -1,6 +1,7 @@
 package com.alugaki.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,18 @@ public class ClienteRestController {
 		// VALIDACOES SE CLIENTE NAO EXISTE
 		Cliente cliente = clienteService.buscarClientePorId(id);
 		return new ResponseEntity<>(cliente, HttpStatus.OK);
+	}
+
+	@GetMapping("/nome/{nome}")
+	@ResponseBody
+	public ResponseEntity<List<Cliente>> buscarClientePorNome(@PathVariable("nome") String nome) {
+
+		List<Cliente> filtroClientes = clienteService.findaAll()
+											.stream()
+												.filter(c -> c.getNome().trim().toLowerCase().contains(nome.trim().toLowerCase()))
+													.collect(Collectors.toList());
+
+		return new ResponseEntity<>(filtroClientes, HttpStatus.OK);
 	}
 
 	@PostMapping
