@@ -3,8 +3,6 @@ package com.alugaki.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alugaki.model.Veiculo;
@@ -28,40 +25,66 @@ public class VeiculoRestController {
 	private VeiculoService veiculoService;
 
 	@GetMapping
-	@ResponseBody
-	public ResponseEntity<List<Veiculo>> findAll() {
-		return new ResponseEntity<>(veiculoService.findaAll(), HttpStatus.OK);
+	public List<Veiculo> findAll() {
+		return veiculoService.findaAll();
 	}
 
 	@GetMapping("{id}")
-	@ResponseBody
-	public ResponseEntity<Veiculo> buscarClientePorId(@PathVariable("id") Long id) {
-		Veiculo veiculo = veiculoService.buscarVeiculoPorId(id);
-		return new ResponseEntity<>(veiculo, HttpStatus.OK);
+	public Veiculo buscarClientePorId(@PathVariable("id") Long id) {
+		return veiculoService.buscarVeiculoPorId(id);
 	}
 
 	@PostMapping
-	public ResponseEntity<Veiculo> salvarCliente(@RequestBody Veiculo veiculo ) {
-		veiculoService.salvar(veiculo);
-		return new ResponseEntity<>(veiculo, HttpStatus.CREATED);
+	public Veiculo salvarCliente(@RequestBody Veiculo veiculo) {
+
+		if (isVeiculoValido(veiculo)) {
+			return veiculoService.salvar(veiculo);
+		}
+
+		return new Veiculo();
+	}
+
+	private boolean isVeiculoValido(Veiculo veiculo) {
+		return veiculo != null;
 	}
 
 	@PutMapping
-	public ResponseEntity<Veiculo> editarCliente(@RequestBody Veiculo veiculo ) {
-		veiculoService.salvar(veiculo);
-		return new ResponseEntity<>(veiculo, HttpStatus.OK);
+	public Veiculo editarCliente(@RequestBody Veiculo veiculo) {
+
+		if (isVeiculoValido(veiculo) && veiculo.getId() != null) {
+			return veiculoService.salvar(veiculo);
+
+		}
+
+		return new Veiculo();
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Veiculo> excluirCliente(@RequestBody Veiculo veiculo ) {
-		veiculoService.excluir(veiculo);
-		return new ResponseEntity<>(veiculo, HttpStatus.OK);
+	public Veiculo excluirCliente(@RequestBody Veiculo veiculo) {
+
+		if (isVeiculoValido(veiculo)) {
+			veiculoService.excluir(veiculo);
+			return veiculo;
+		}
+
+		return new Veiculo();
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<Veiculo> excluirCliente(@PathVariable("id") Long id) {
-		Veiculo veiculo  = veiculoService.buscarVeiculoPorId(id);
-		veiculoService.excluir(veiculo);
-		return new ResponseEntity<>(veiculo, HttpStatus.OK);
+	public Veiculo excluirCliente(@PathVariable("id") Long id) {
+
+		if (id != null) {
+			
+			Veiculo veiculo = veiculoService.buscarVeiculoPorId(id);
+
+			if (isVeiculoValido(veiculo)) {
+				veiculoService.excluir(veiculo);
+				return veiculo;
+			}
+			
+		}
+		
+		return new Veiculo();
+
 	}
 }

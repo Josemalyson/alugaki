@@ -27,8 +27,8 @@ public class VeiculoService implements Serializable {
 	}
 
 	@Transactional
-	public void salvar(Veiculo veiculo) {
-		veiculoRepository.save(veiculo);
+	public Veiculo salvar(Veiculo veiculo) {
+		return veiculoRepository.save(veiculo);
 	}
 
 	@Transactional
