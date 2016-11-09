@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.alugaki.enums.CorEnum;
-
 @Entity
 @Table(name = "TB_VEICULO")
 public class Veiculo implements Serializable {

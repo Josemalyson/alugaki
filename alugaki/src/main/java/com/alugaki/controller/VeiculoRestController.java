@@ -1,6 +1,8 @@
 package com.alugaki.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,6 +34,19 @@ public class VeiculoRestController {
 	@GetMapping("{id}")
 	public Veiculo buscarClientePorId(@PathVariable("id") Long id) {
 		return veiculoService.buscarVeiculoPorId(id);
+	}
+	
+	@GetMapping("/marca/{marca}")
+	public List<Veiculo> buscarVeiculoPorMarca(@PathVariable("marca") String marca) {
+
+		if (marca != null) {
+			return veiculoService.findaAll()
+									.stream()
+										.filter(v -> v.getMarca().trim().toLowerCase().contains(marca.trim().toLowerCase()))
+											.collect(Collectors.toList());
+		}
+
+		return new ArrayList<>();
 	}
 
 	@PostMapping

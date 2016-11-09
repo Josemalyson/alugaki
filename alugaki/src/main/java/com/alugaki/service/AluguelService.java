@@ -12,7 +12,8 @@ import com.alugaki.repository.AluguelRepository;
 @Service
 public class AluguelService implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = 8765331828647518703L;
 	
 	@Autowired
 	private AluguelRepository aluguelRepository;
