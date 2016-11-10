@@ -20,21 +20,26 @@ public class AluguelRestController {
 
 	@Autowired
 	private AluguelService aluguelService;
-	
+
 	@GetMapping
-	public List<Aluguel> findAll(){
+	public List<Aluguel> findAll() {
 		return aluguelService.findaAll();
 	}
-	
-//	@PostMapping(params={"idCliente", "idVeiculo"})
-//	public Aluguel alugarVeiculo(@RequestParam("idCliente") Long cliente, @RequestParam("idVeiculo") Long veiculo){
-//		System.out.println("Cliente id:" + cliente + " Veiculo id: " + veiculo);
-//		return new Aluguel();
-//	}
-	
+
+	// @PostMapping(params={"idCliente", "idVeiculo"})
+	// public Aluguel alugarVeiculo(@RequestParam("idCliente") Long cliente,
+	// @RequestParam("idVeiculo") Long veiculo){
+	// System.out.println("Cliente id:" + cliente + " Veiculo id: " + veiculo);
+	// return new Aluguel();
+	// }
+
 	@PostMapping
-	public Aluguel alugarVeiculo(@RequestBody Aluguel aluguel){
-		System.out.println(aluguel.toString());
+	public Aluguel alugarVeiculo(@RequestBody Aluguel aluguel) {
+
+		if (aluguel != null) {
+			return aluguelService.alugar(aluguel);
+		}
+
 		return new Aluguel();
 	}
 }
